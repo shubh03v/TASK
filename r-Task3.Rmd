@@ -1,0 +1,42 @@
+---
+title: "TASK-3"
+author: "shubhra"
+date: "02/08/2019"
+output: html_document
+---
+
+```{r load_library}
+library("pheatmap")
+```
+
+## importing Data
+
+```{r read_data}
+read_counts <- read.table("heatmap.txt",row.names = 1,header = TRUE)
+
+```
+
+
+## Cleaning data
+
+A row should have atleast one read
+
+
+```{r filtering}
+keep <- rowSums(read_counts) > 0
+read_counts <- read_counts[keep,]
+```
+
+
+## Import metadata
+
+```{r metadata}
+meta <- read.table("metadata2.txt", header = TRUE, row.names = 1)
+```
+
+
+## Making heatmap
+
+```{r heatmap}
+pheatmap(read_counts, scale = "row",annotation_col = meta )
+```
